@@ -1,0 +1,1597 @@
+/* ==========================================================================
+   E-SAFE — Forensic Terminal Design System
+   Style: Dark Forensic UI — precise, functional, zero decoration waste
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Fira+Code:wght@400;500;600&display=swap');
+
+:root {
+    --surface-0: #0c0e14;
+    --surface-1: #141724;
+    --surface-2: #1e2236;
+    --surface-3: #2a2f4c;
+    --border: rgba(255, 255, 255, 0.14); /* Nâng độ tương phản viền cho máy chiếu */
+    --border-hover: rgba(255, 255, 255, 0.28);
+
+    --accent: #7c6df2; /* Tăng độ sáng màu tím để không bị chìm trên nền đen */
+    --accent-hover: #6a5ad9;
+    --accent-glow: rgba(124, 109, 242, 0.35);
+    --accent-muted: rgba(124, 109, 242, 0.16);
+
+    --signal-danger: #ff7676; /* Tăng sáng đỏ coral */
+    --signal-danger-bg: rgba(255, 118, 118, 0.12);
+    --signal-danger-glow: rgba(255, 118, 118, 0.35);
+    --signal-safe: #5beb71; /* Tăng sáng xanh lá để nổi bật bần bật */
+    --signal-safe-bg: rgba(91, 235, 113, 0.12);
+    --signal-safe-glow: rgba(91, 235, 113, 0.25);
+    --signal-warn: #ffd43b; /* Vàng sáng rực rỡ */
+    --signal-warn-bg: rgba(255, 212, 59, 0.12);
+
+    --text-0: #f8f9fa; /* Trắng sáng tinh khiết (WCAG AAA) */
+    --text-1: #a9b0c2; /* Xám sáng hơn để chống chói/lóa từ máy chiếu cũ */
+    --text-2: #788094; /* Nổi bật hơn so với xám tối cũ */
+
+    --font-display: 'Sora', system-ui, sans-serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --font-mono: 'Fira Code', 'Consolas', monospace;
+
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --duration-fast: 150ms;
+    --duration-normal: 250ms;
+    --duration-slow: 400ms;
+
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-pill: 9999px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+body {
+    background: var(--surface-0);
+    color: var(--text-0);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-darkest);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+}
+a:hover {
+    color: var(--accent-hover);
+}
+
+/* Sticky Premium Navbar */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(12, 14, 20, 0.82);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    border-bottom: 1px solid var(--border);
+    padding: 0.875rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    background: var(--accent);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.logo-text {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text-0);
+}
+
+.logo-tag {
+    background: var(--signal-danger-bg);
+    border: 1px solid rgba(255, 107, 107, 0.2);
+    color: var(--signal-danger);
+    padding: 0.125rem 0.5rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 0.25rem;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    padding: 0.25rem;
+    border-radius: var(--radius-pill);
+}
+
+.nav-item button {
+    background: transparent;
+    border: none;
+    color: var(--text-1);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-item button:hover {
+    color: var(--text-0);
+    background: var(--surface-2);
+}
+
+.nav-item.active button {
+    color: white;
+    background: var(--accent);
+}
+
+/* Page Layout */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem 4rem 1.5rem;
+}
+
+.card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    transition: border-color var(--duration-normal) var(--ease-out);
+}
+
+.card:hover {
+    border-color: var(--border-hover);
+}
+
+.card.glow-primary:hover {
+    border-color: rgba(108, 92, 231, 0.25);
+}
+
+.card.glow-danger:hover {
+    border-color: rgba(255, 107, 107, 0.25);
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.hero h1 {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    color: var(--text-0);
+}
+
+.hero p {
+    font-size: 1rem;
+    color: var(--text-1);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* SPA Tabs */
+.tab-content {
+    display: none;
+    animation: tabEnter var(--duration-slow) var(--ease-out);
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes tabEnter {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   TAB 1: SIMULATOR HUB & MOCKUPS
+   ========================================================================== */
+
+.simulator-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+@media (max-width: 1200px) {
+    .simulator-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.sim-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.sim-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 1.25rem;
+}
+
+.badge {
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.badge-phishing {
+    background: var(--signal-warn-bg);
+    border: 1px solid rgba(252, 196, 25, 0.25);
+    color: var(--signal-warn);
+}
+
+.badge-crypto {
+    background: var(--signal-danger-bg);
+    border: 1px solid rgba(255, 107, 107, 0.25);
+    color: var(--signal-danger);
+}
+
+.sim-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.sim-desc {
+    color: var(--text-1);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+/* Interactive Control Buttons */
+.btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.625rem 1.25rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all var(--duration-fast) var(--ease-out);
+    width: 100%;
+}
+
+.btn:hover {
+    background: var(--accent-hover);
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn-danger {
+    background: var(--signal-danger);
+}
+.btn-danger:hover {
+    background: #e85d5d;
+}
+
+.btn-success {
+    background: var(--signal-safe);
+    color: #0c0e14;
+}
+.btn-success:hover {
+    background: #47b85c;
+}
+
+.btn-secondary {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text-0);
+}
+.btn-secondary:hover {
+    background: var(--surface-3);
+    border-color: var(--border-hover);
+}
+
+.btn-outline-danger {
+    background: transparent;
+    border: 1px solid var(--signal-danger);
+    color: var(--signal-danger);
+}
+.btn-outline-danger:hover {
+    background: var(--signal-danger-bg);
+    color: var(--text-0);
+    border-color: var(--signal-danger);
+}
+
+/* Phishing Smartphone Mockup */
+.mockup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--surface-0);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-top: 1rem;
+    min-height: 520px;
+    position: relative;
+    overflow: hidden;
+}
+
+.smartphone {
+    width: 320px;
+    height: 600px;
+    background: #0a0c12;
+    border: 8px solid var(--surface-3);
+    border-radius: 32px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Smartphone Notch */
+.phone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 16px;
+    background: var(--surface-3);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    z-index: 10;
+}
+
+.phone-screen {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding-top: 18px;
+    height: 100%;
+    position: relative;
+}
+
+/* Phone App - Message App */
+.phone-app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.phone-header {
+    background: var(--surface-1);
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.phone-avatar {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: white;
+    font-weight: 700;
+}
+
+.phone-chat-body {
+    flex-grow: 1;
+    background: var(--surface-0);
+    padding: 1rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+}
+
+.sms-time {
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--text-2);
+}
+
+.sms-bubble {
+    background: var(--surface-2);
+    border-radius: var(--radius-lg);
+    border-top-left-radius: 0.25rem;
+    padding: 0.75rem 0.875rem;
+    max-width: 85%;
+    font-size: 0.85rem;
+    align-self: flex-start;
+    border: 1px solid var(--border);
+}
+
+.sms-sender {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--signal-warn);
+    margin-bottom: 0.25rem;
+}
+
+.sms-link {
+    display: block;
+    background: var(--accent-muted);
+    border: 1px dashed rgba(108, 92, 231, 0.3);
+    color: var(--accent);
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    margin-top: 0.5rem;
+    word-break: break-all;
+    cursor: pointer;
+    font-weight: 500;
+    text-align: center;
+    transition: all var(--duration-fast) var(--ease-out);
+}
+
+.sms-link:hover {
+    background: rgba(108, 92, 231, 0.2);
+    border-color: var(--accent);
+}
+
+/* Phishing Login Interface */
+.phish-app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--surface-1);
+    color: white;
+}
+
+.phish-header-bar {
+    background: var(--surface-0);
+    padding: 0.75rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.phish-warning-url {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-family: var(--font-mono);
+    color: #e5e7eb;
+    margin-bottom: 0.5rem;
+    word-break: break-all;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.redflags-active .phish-warning-url {
+    border-color: var(--signal-danger);
+    background: var(--signal-danger-bg);
+    color: var(--signal-danger);
+    box-shadow: 0 0 8px rgba(255, 107, 107, 0.2);
+    animation: pulseGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+    from { box-shadow: 0 0 4px rgba(255, 107, 107, 0.15); }
+    to { box-shadow: 0 0 12px rgba(255, 107, 107, 0.4); }
+}
+
+.redflags-active .redflag-glow {
+    outline: 2px solid var(--signal-danger);
+    outline-offset: 2px;
+    animation: borderPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes borderPulse {
+    from { outline-color: rgba(255, 107, 107, 0.2); }
+    to { outline-color: rgba(255, 107, 107, 0.8); }
+}
+
+.phish-logo {
+    width: 3.5rem;
+    height: 3.5rem;
+    background: #0088cc;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1.5rem auto 0.75rem auto;
+    font-size: 1.75rem;
+}
+
+.phish-form {
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.phish-title {
+    text-align: center;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.phish-subtitle {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.phish-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.phish-input-group label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-1);
+}
+
+.phish-input-group input {
+    background: var(--surface-0);
+    border: 1px solid var(--border);
+    color: white;
+    padding: 0.625rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-family: var(--font-body);
+    outline: none;
+    transition: border-color var(--duration-fast) var(--ease-out);
+}
+
+.phish-input-group input:focus {
+    border-color: var(--accent);
+}
+
+/* Hack Monospace Console */
+.hacker-console {
+    background: #030508;
+    font-family: var(--font-mono);
+    padding: 1.25rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    color: var(--signal-safe);
+    overflow-y: auto;
+}
+
+.console-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(81, 207, 102, 0.15);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #73dba0;
+}
+
+.console-line {
+    word-break: break-all;
+    line-height: 1.4;
+    animation: lineAppear var(--duration-normal) var(--ease-out);
+}
+
+@keyframes lineAppear {
+    from { opacity: 0; transform: translateX(-4px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.console-accent {
+    color: #ff6b6b;
+}
+
+.console-warning {
+    color: #fcc419;
+}
+
+.console-success {
+    color: var(--accent);
+}
+
+/* Phishing Control Bar (floating indicators) */
+.phishing-controls {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    gap: 0.75rem;
+}
+
+/* Tooltip styled box */
+.redflag-tooltip {
+    display: none;
+    position: absolute;
+    background: var(--signal-danger);
+    color: white;
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.7rem;
+    z-index: 100;
+    font-weight: 600;
+    max-width: 200px;
+    pointer-events: none;
+}
+
+.redflags-active .redflag-tooltip {
+    display: block;
+}
+
+/* ==========================================================================
+   MOCKUP CRYPTO PLATFORM (Kịch bản B)
+   ========================================================================== */
+
+.crypto-portal {
+    background: var(--surface-0);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin-top: 1.5rem;
+}
+
+.crypto-nav {
+    background: var(--surface-1);
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.crypto-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: white;
+}
+
+.crypto-logo i {
+    color: var(--signal-safe);
+}
+
+.crypto-nav-items {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-1);
+}
+
+.crypto-nav-item.active {
+    color: white;
+    font-weight: 700;
+}
+
+.crypto-user-badge {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.crypto-user-status {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--signal-safe);
+}
+
+.crypto-body {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    flex-grow: 1;
+}
+
+@media (max-width: 1400px) {
+    .crypto-body {
+        grid-template-columns: 1fr;
+    }
+    .crypto-sidebar {
+        border-left: none !important;
+        border-top: 1px solid var(--border) !important;
+    }
+    .crypto-chat-box {
+        height: 340px !important;
+    }
+}
+
+.crypto-main-view {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.crypto-sidebar {
+    background: var(--surface-1);
+    border-left: 1px solid var(--border);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* Portfolio Cards */
+.crypto-dashboard-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+}
+
+@media (max-width: 600px) {
+    .crypto-dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+.crypto-mini-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+}
+
+.mini-card-label {
+    font-size: 0.72rem;
+    color: var(--text-1);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.mini-card-val {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-top: 0.25rem;
+    color: white;
+}
+
+.mini-card-val.neon-green {
+    color: var(--signal-safe);
+}
+
+/* Simulated Chart Area */
+.crypto-chart-container {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    flex-grow: 1;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.chart-ticker {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.ticker-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.ticker-change {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--signal-safe);
+}
+
+.chart-canvas-mock {
+    flex-grow: 1;
+    border-bottom: 1px dashed rgba(255,255,255,0.05);
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.25rem;
+    height: 180px;
+    overflow: hidden;
+}
+
+/* Candlestick visual mockup */
+.candlestick {
+    flex-grow: 1;
+    background: var(--signal-safe);
+    border-radius: 2px;
+    position: relative;
+    transition: height var(--duration-slow) var(--ease-out);
+}
+
+.candlestick.red {
+    background: var(--signal-danger);
+}
+
+.candlestick::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 140%;
+    background: inherit;
+    top: -20%;
+    z-index: -1;
+}
+
+/* Sidebar Quick Action */
+.sidebar-title {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: white;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+}
+
+.quick-trading-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.trade-input-group {
+    background: var(--surface-0);
+    border: 1px solid var(--border);
+    padding: 0.75rem;
+    border-radius: var(--radius-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.trade-input-group input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: 700;
+    width: 60%;
+}
+
+.trade-asset-selector {
+    font-size: 0.85rem;
+    font-weight: 700;
+    background: rgba(255,255,255,0.07);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+}
+
+/* Simulated AI Chatbot on Crypto Site */
+.crypto-chat-box {
+    background: var(--surface-0);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    overflow: hidden;
+}
+
+.crypto-chat-header {
+    background: var(--surface-1);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.crypto-chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+}
+
+.cc-message {
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    max-width: 90%;
+    line-height: 1.4;
+}
+
+.cc-message.bot {
+    background: var(--surface-2);
+    align-self: flex-start;
+    border-bottom-left-radius: 0;
+}
+
+.cc-message.user {
+    background: var(--accent);
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+}
+
+.crypto-chat-options {
+    background: var(--surface-1);
+    padding: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    border-top: 1px solid var(--border);
+}
+
+.chat-option-btn {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text-1);
+    font-size: 0.72rem;
+    font-family: var(--font-body);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
+}
+
+.chat-option-btn:hover {
+    background: var(--surface-3);
+    color: white;
+}
+
+/* ==========================================================================
+   SCAM TAX BANNER MODAL
+   ========================================================================== */
+.scam-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(6px);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.scam-modal {
+    background: var(--surface-1);
+    border: 2px solid var(--signal-danger);
+    border-radius: var(--radius-lg);
+    max-width: 480px;
+    width: 100%;
+    padding: 2rem;
+    text-align: center;
+    animation: modalEnter var(--duration-normal) var(--ease-spring);
+}
+
+@keyframes modalEnter {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.scam-modal-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    background: var(--signal-danger-bg);
+    border: 1px solid rgba(255, 107, 107, 0.2);
+    color: var(--signal-danger);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    margin: 0 auto 1.25rem auto;
+}
+
+.scam-modal-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.75rem;
+}
+
+.scam-modal-desc {
+    color: var(--text-1);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    background: var(--signal-danger-bg);
+    border: 1px solid rgba(255, 107, 107, 0.12);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    text-align: left;
+}
+
+.scam-modal-desc strong {
+    color: var(--signal-danger);
+}
+
+/* General Simulation Success Modal */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.modal-content {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    max-width: 500px;
+    width: 100%;
+    padding: 2rem;
+    text-align: center;
+    animation: modalEnter var(--duration-normal) var(--ease-spring);
+}
+
+/* ==========================================================================
+   TAB 2: THREAT MAP (ATTACK PATH FLOWCHARTS)
+   ========================================================================== */
+
+.flowchart-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-top: 1.5rem;
+}
+
+.flowchart-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    position: relative;
+}
+
+@media (max-width: 850px) {
+    .flowchart-steps {
+        grid-template-columns: 1fr;
+    }
+}
+
+.flowchart-step-card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: border-color var(--duration-normal) var(--ease-out), transform var(--duration-normal) var(--ease-out);
+}
+
+.flowchart-step-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+}
+
+.step-num {
+    position: absolute;
+    top: -12px;
+    left: 1.25rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.flowchart-step-card.attack-node:hover {
+    border-color: var(--signal-danger);
+}
+
+.flowchart-step-card.attack-node .step-num {
+    background: var(--signal-danger);
+}
+
+.flowchart-step-card.defense-node:hover {
+    border-color: var(--signal-safe);
+}
+
+.flowchart-step-card.defense-node .step-num {
+    background: var(--signal-safe);
+}
+
+.step-title {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-top: 0.25rem;
+}
+
+.step-desc {
+    font-size: 0.82rem;
+    color: var(--text-1);
+}
+
+.step-redflags {
+    background: var(--signal-danger-bg);
+    border: 1px solid rgba(255, 107, 107, 0.1);
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.78rem;
+    color: #ffa8a8;
+}
+
+.step-redflags strong {
+    color: var(--signal-danger);
+}
+
+/* Flowchart Arrow Separators for desktop only */
+@media (min-width: 851px) {
+    .flowchart-step-card:not(:last-child)::after {
+        content: '\2192';
+        position: absolute;
+        right: -1.25rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.25rem;
+        color: var(--text-2);
+        pointer-events: none;
+    }
+}
+
+/* ==========================================================================
+   TAB 3: CASES HUB
+   ========================================================================== */
+
+.cases-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+@media (max-width: 750px) {
+    .cases-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.case-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.case-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 0.5rem;
+}
+
+.case-tag {
+    font-size: 0.7rem;
+    background: var(--accent-muted);
+    color: var(--accent);
+    border: 1px solid rgba(108, 92, 231, 0.2);
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.25rem;
+    font-weight: 600;
+}
+
+.case-date {
+    font-size: 0.72rem;
+    color: var(--text-2);
+}
+
+.case-name {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.case-anatomy {
+    background: rgba(0,0,0,0.2);
+    border-radius: 0.5rem;
+    padding: 0.85rem;
+    font-size: 0.85rem;
+}
+
+.case-anatomy p {
+    margin-bottom: 0.5rem;
+}
+
+.case-anatomy p strong {
+    color: var(--signal-warn);
+}
+
+.case-lesson {
+    border-left: 2px solid var(--signal-safe);
+    padding-left: 0.75rem;
+    font-size: 0.82rem;
+    color: #d1d5db;
+}
+
+.case-lesson strong {
+    color: var(--signal-safe);
+}
+
+/* ==========================================================================
+   TAB 4: SHIELD HUB (DEFENSE GRID)
+   ========================================================================== */
+
+.defense-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+@media (max-width: 850px) {
+    .defense-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.defense-section-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.defense-section-title.user i {
+    color: var(--signal-safe);
+}
+
+.defense-section-title.org i {
+    color: var(--accent);
+}
+
+.checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
+}
+
+.checklist-item:hover {
+    background: var(--surface-2);
+}
+
+.checklist-checkbox {
+    width: 1.15rem;
+    height: 1.15rem;
+    border: 2px solid var(--text-2);
+    border-radius: 0.25rem;
+    margin-top: 0.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+    font-size: 0.75rem;
+    transition: all var(--duration-fast) var(--ease-out);
+}
+
+.checklist-item.checked .checklist-checkbox {
+    background: var(--signal-safe);
+    border-color: var(--signal-safe);
+    color: white;
+}
+
+.checklist-content {
+    flex-grow: 1;
+}
+
+.checklist-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: white;
+}
+
+.checklist-item.checked .checklist-title {
+    color: var(--text-2);
+    text-decoration: line-through;
+}
+
+.checklist-desc {
+    font-size: 0.78rem;
+    color: var(--text-1);
+    margin-top: 0.15rem;
+}
+
+/* Interactive simulation tools footer */
+.footer-bar {
+    background: var(--surface-1);
+    border-top: 1px solid var(--border);
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--text-2);
+    margin-top: 4rem;
+}
+
+.footer-bar a {
+    font-weight: 600;
+}
+
+.footer-sub {
+    margin-top: 0.25rem;
+}
+
+/* New utility classes for cleaned-up HTML */
+.section-header-card {
+    margin-bottom: 2rem;
+}
+
+.section-heading {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.section-heading i {
+    color: var(--accent);
+}
+
+.section-desc {
+    color: var(--text-1);
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+}
+
+.section-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.section-actions .btn {
+    width: auto;
+}
+
+.sim-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.sim-icon-warn {
+    color: var(--signal-warn);
+    font-size: 1.35rem;
+}
+
+.sim-icon-danger {
+    color: var(--signal-danger);
+    font-size: 1.35rem;
+}
+
+.phone-contact-name {
+    color: white;
+    font-weight: 600;
+}
+
+.phone-contact-status {
+    font-size: 0.65rem;
+    color: var(--signal-safe);
+    font-weight: 500;
+}
+
+.phone-contact-status i {
+    font-size: 0.55rem;
+}
+
+.chart-time-label {
+    font-size: 0.72rem;
+    color: var(--text-2);
+}
+
+.chat-icon-safe {
+    color: var(--signal-safe);
+}
+
+.flow-section-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.flow-section-title.flow-attack {
+    color: var(--signal-danger);
+}
+
+.flow-section-title.flow-defense {
+    color: var(--signal-safe);
+}
+
+.modal-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: white;
+}
+
+.modal-desc {
+    color: var(--text-1);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.sim-title {
+    margin-top: 0.5rem;
+}
+
+/* Console bridge notice (hacker → crypto flow link) */
+.console-bridge-notice {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background: var(--signal-danger-bg);
+    border: 1px solid rgba(255, 107, 107, 0.2);
+    border-radius: var(--radius-sm);
+}
+
+.console-bridge-title {
+    color: var(--signal-danger);
+    font-weight: 700;
+    font-size: 0.75rem;
+}
+
+.console-bridge-desc {
+    color: var(--text-1);
+    font-size: 0.7rem;
+    margin-top: 0.25rem;
+}
+
+/* Scam modal full-width button override */
+#btn-close-scam-modal {
+    width: 100%;
+}
+
+/* Sidebar title spacing */
+.sidebar-title + .crypto-chat-box {
+    margin-top: 0.25rem;
+}

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Safe: Hệ Thống Mô Phỏng Lừa Đảo Thương Mại Điện Tử</title>
+    <meta name="description"
+        content="E-Safe Simulator — Công cụ giả lập tương tác các kịch bản lừa đảo tài chính trực tuyến phục vụ giáo dục bảo mật thanh toán E-commerce.">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome Icons for premium feel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <div class="logo-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <div>
+                <span class="logo-text">E-Safe</span>
+                <span class="logo-tag">Scam Simulator</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li class="nav-item active" data-tab="simulator">
+                <button><i class="fa-solid fa-gamepad"></i> Trình giả lập</button>
+            </li>
+            <li class="nav-item" data-tab="threatmap">
+                <button><i class="fa-solid fa-diagram-project"></i> Sơ đồ mối đe dọa</button>
+            </li>
+            <li class="nav-item" data-tab="cases">
+                <button><i class="fa-solid fa-newspaper"></i> Vụ án thực tế</button>
+            </li>
+            <li class="nav-item" data-tab="shield">
+                <button><i class="fa-solid fa-user-shield"></i> Lá chắn bảo mật</button>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- Header Hero Section -->
+        <header class="hero">
+            <h1>Hệ Thống Mô Phỏng & Cảnh Báo Lừa Đảo E-Safe</h1>
+            <p>Học phần: Thanh toán an toàn và bảo mật trong Thương mại điện tử. Trực quan hóa các kịch bản lừa đảo tài
+                chính và giải pháp phòng vệ toàn diện.</p>
+        </header>
+
+        <!-- ==========================================
+             TAB 1: INTERACTIVE SIMULATOR HUB
+             ========================================== -->
+        <section id="tab-simulator" class="tab-content active">
+            <div class="card glow-primary section-header-card">
+                <h2 class="section-heading">
+                    <i class="fa-solid fa-sliders"></i> Bảng điều khiển giả lập
+                </h2>
+                <p class="section-desc">
+                    Chọn một trong hai kịch bản dưới đây để khởi chạy bộ mô phỏng an toàn thông tin tương tác. Bạn có
+                    thể xem dòng dữ liệu nhảy trực tiếp trên thiết bị nạn nhân.
+                </p>
+                <div class="section-actions">
+                    <button class="btn btn-secondary" id="btn-select-phish">
+                        <i class="fa-solid fa-mobile-screen-button"></i> Kịch bản A: Link Phishing
+                    </button>
+                    <button class="btn btn-secondary" id="btn-select-crypto">
+                        <i class="fa-solid fa-chart-line"></i> Kịch bản B: Sàn Crypto giả mạo
+                    </button>
+                    <button class="btn btn-outline-danger" id="btn-master-reset" style="margin-left: auto;">
+                        <i class="fa-solid fa-arrows-rotate"></i> Đặt lại toàn bộ giả lập
+                    </button>
+                </div>
+            </div>
+
+            <!-- Simulator Grid View -->
+            <div class="simulator-grid" id="sim-grid-container">
+
+                <!-- Card A: Phishing Simulator -->
+                <div class="card sim-card glow-danger" id="panel-phishing-sim">
+                    <div class="sim-header">
+                        <div>
+                            <span class="badge badge-phishing">Kịch bản A (Social Engineering)</span>
+                            <h3 class="sim-title">Mô phỏng bẫy Phishing Telegram</h3>
+                        </div>
+                        <i class="fa-solid fa-circle-exclamation sim-icon-warn"></i>
+                    </div>
+                    <p class="sim-desc">
+                        Nạn nhân nhận được tin nhắn SMS mạo danh hệ thống bảo mật để dẫn dụ click vào link giả mạo
+                        Telegram. Hệ thống minh họa việc cướp session cookie và tự động spam bạn bè của nạn nhân.
+                    </p>
+
+                    <div class="sim-controls">
+                        <button class="btn btn-danger" id="btn-toggle-redflags">
+                            <i class="fa-solid fa-eye"></i> Bật chế độ phân tích Red Flags
+                        </button>
+                        <button class="btn btn-secondary" id="btn-reset-phishing">
+                            <i class="fa-solid fa-rotate-left"></i> Thiết lập lại kịch bản
+                        </button>
+                    </div>
+
+                    <!-- Smartphone Mockup -->
+                    <div class="mockup-container">
+                        <!-- Red Flag Floating Tooltips -->
+                        <div class="redflag-tooltip" id="tip-url" style="top: 30px; left: 10px;">
+                            <strong><i class="fa-solid fa-circle-exclamation"></i> Red Flag 1: Domain giả
+                                mạo!</strong><br>
+                            Link sử dụng từ cố ý viết sai chính tả: "telegram-security-verifiy.com" (chữ "i" dư thừa)
+                            thay vì "telegram.org".
+                        </div>
+                        <div class="redflag-tooltip" id="tip-accent" style="top: 220px; right: 10px;">
+                            <strong><i class="fa-solid fa-circle-exclamation"></i> Red Flag 2: Tâm lý khẩn
+                                cấp!</strong><br>
+                            Đe dọa khóa tài khoản vĩnh viễn trong 24 giờ để thúc ép nạn nhân hành động phi lý trí.
+                        </div>
+
+                        <div class="smartphone">
+                            <div class="phone-notch"></div>
+                            <div class="phone-screen" id="phone-screen-content">
+                                <!-- App 1: Messages Chat (Default state) -->
+                                <div class="phone-app" id="phone-app-sms">
+                                    <div class="phone-header">
+                                        <div class="phone-avatar">T</div>
+                                        <div>
+                                            <div class="phone-contact-name">Telegram Security</div>
+                                            <div class="phone-contact-status"><i class="fa-solid fa-circle-check"></i>
+                                                Official Account</div>
+                                        </div>
+                                    </div>
+                                    <div class="phone-chat-body">
+                                        <div class="sms-time">Hôm nay 23:08</div>
+                                        <div class="sms-bubble redflag-glow">
+                                            <div class="sms-sender">HỆ THỐNG AN NINH TELEGRAM</div>
+                                            Tài khoản của bạn phát hiện truy cập bất thường tại IP: 103.45.12.89 (Hà
+                                            Nội, VN).
+                                            <br><br>
+                                            Vui lòng xác thực tài khoản trong vòng 24 giờ để tránh bị khóa vĩnh viễn:
+                                            <span class="sms-link"
+                                                id="phishing-click-link">telegram-security-verifiy.com/login</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card B: Crypto Scam Platform -->
+                <div class="card sim-card glow-danger" id="panel-crypto-sim">
+                    <div class="sim-header">
+                        <div>
+                            <span class="badge badge-crypto">Kịch bản B (Financial Fraud)</span>
+                            <h3 class="sim-title">Sàn Đầu Tư Ảo NovaGrow</h3>
+                        </div>
+                        <i class="fa-solid fa-sack-dollar sim-icon-danger"></i>
+                    </div>
+                    <p class="sim-desc">
+                        Nạn nhân bị dẫn dụ vào sàn đầu tư tiền điện tử với hứa hẹn lợi nhuận cực cao. Sàn liên tục cập
+                        nhật số dư lãi giả. Khi nạn nhân ấn nút Rút tiền, sàn sẽ chặn lại và yêu cầu nạp thêm 15% phí
+                        thuế.
+                    </p>
+
+                    <div class="sim-controls">
+                        <button class="btn btn-danger" id="btn-trigger-scam-modal">
+                            <i class="fa-solid fa-money-bill-transfer"></i> Mô phỏng Rút tiền bị khóa
+                        </button>
+                        <button class="btn btn-secondary" id="btn-reset-crypto">
+                            <i class="fa-solid fa-rotate-left"></i> Đặt lại số dư & chat
+                        </button>
+                    </div>
+
+                    <!-- Simulated Crypto Web App -->
+                    <div class="crypto-portal">
+                        <!-- Crypto Header -->
+                        <div class="crypto-nav">
+                            <div class="crypto-logo">
+                                <i class="fa-solid fa-chart-line"></i> NovaGrow Crypto
+                            </div>
+                            <div class="crypto-nav-items">
+                                <span class="crypto-nav-item active">Dashboard</span>
+                                <span class="crypto-nav-item">Thị trường</span>
+                                <span class="crypto-nav-item">Ví tiền</span>
+                            </div>
+                            <div class="crypto-user-badge">
+                                <div class="crypto-user-status"></div>
+                                <span>victim_user_12</span>
+                            </div>
+                        </div>
+
+                        <!-- Crypto Content Area -->
+                        <div class="crypto-body">
+                            <!-- Main Trading Area -->
+                            <div class="crypto-main-view">
+                                <div class="crypto-dashboard-cards">
+                                    <div class="crypto-mini-card">
+                                        <div class="mini-card-label">Tổng vốn nạp</div>
+                                        <div class="mini-card-val">$1,000.00</div>
+                                    </div>
+                                    <div class="crypto-mini-card">
+                                        <div class="mini-card-label">Lợi nhuận cam kết (+0.05%/s)</div>
+                                        <div class="mini-card-val neon-green" id="crypto-live-profit">$254.38</div>
+                                    </div>
+                                    <div class="crypto-mini-card">
+                                        <div class="mini-card-label">Tổng giá trị tài sản</div>
+                                        <div class="mini-card-val neon-green" id="crypto-total-assets">$1,254.38</div>
+                                    </div>
+                                </div>
+
+                                <!-- Live simulated candlestick chart -->
+                                <div class="crypto-chart-container">
+                                    <div class="chart-header">
+                                        <div class="chart-ticker">
+                                            <span class="ticker-name">BTC / USDT</span>
+                                            <span class="ticker-change"><i class="fa-solid fa-caret-up"></i> +8.42%
+                                                (24h)</span>
+                                        </div>
+                                        <div class="chart-time-label">
+                                            Thời gian thực
+                                        </div>
+                                    </div>
+                                    <!-- Candlestick bar representation -->
+                                    <div class="chart-canvas-mock" id="candlestick-chart">
+                                        <!-- Will be dynamically populated by JS -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Trading & Interactive Chat Sidebar -->
+                            <div class="crypto-sidebar">
+                                <span class="sidebar-title">Giao dịch nhanh</span>
+                                <div class="quick-trading-box">
+                                    <div class="trade-input-group">
+                                        <input type="text" value="2500" readonly>
+                                        <span class="trade-asset-selector">USDT</span>
+                                    </div>
+                                    <button class="btn btn-success" id="btn-crypto-withdraw-action">
+                                        <i class="fa-solid fa-arrow-up-from-bracket"></i> Rút toàn bộ tiền
+                                    </button>
+                                </div>
+
+                                <span class="sidebar-title">Hỗ trợ VIP 24/7</span>
+                                <div class="crypto-chat-box">
+                                    <div class="crypto-chat-header">
+                                        <i class="fa-solid fa-headset chat-icon-safe"></i>
+                                        <span>Trợ lý tài chính VIP (Anna)</span>
+                                    </div>
+                                    <div class="crypto-chat-messages" id="crypto-chat-messages-container">
+                                        <div class="cc-message bot">
+                                            Chào anh/chị. Hệ thống phát hiện lệnh rút tiền $2,500 của anh/chị đang bị cơ
+                                            quan thuế tạm khóa. Tôi là hỗ trợ viên VIP của NovaGrow, hãy liên hệ tôi
+                                            ngay để hướng dẫn mở khóa nhanh chóng nhé.
+                                        </div>
+                                    </div>
+                                    <div class="crypto-chat-options" id="crypto-chat-options-container">
+                                        <!-- Dynamic buttons injected by JS -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TAB 2: THREAT MAP & VISUAL FLOWS
+             ========================================== -->
+        <section id="tab-threatmap" class="tab-content">
+            <div class="card glow-primary section-header-card">
+                <h2 class="section-heading">
+                    <i class="fa-solid fa-diagram-project"></i> Sơ đồ hóa luồng tấn công & phòng thủ
+                </h2>
+                <p class="section-desc">
+                    Phân tích chi tiết quy trình lừa đảo chuỗi liên hoàn và giải pháp phòng chống ở từng điểm chốt kỹ
+                    thuật (Tiêu chí số 2 và 8 trong Rubric).
+                </p>
+            </div>
+
+            <div class="flowchart-container">
+                <div>
+                    <h3 class="flow-section-title flow-attack">
+                        <i class="fa-solid fa-skull-crossbones"></i> LUỒNG TẤN CÔNG LIÊN HOÀN (ATTACK PATH)
+                    </h3>
+                    <div class="flowchart-steps">
+                        <!-- Step 1 -->
+                        <div class="flowchart-step-card attack-node">
+                            <div class="step-num">1</div>
+                            <h4 class="step-title">Tiếp cận & Dẫn dụ</h4>
+                            <p class="step-desc">Kẻ gian mạo danh tin nhắn SMS của Telegram thông báo tài khoản bị đăng
+                                nhập bất thường, tạo tâm lý sợ hãi, khẩn cấp.</p>
+                            <div class="step-redflags">
+                                <strong><i class="fa-solid fa-triangle-exclamation"></i> Dấu hiệu:</strong> Đầu số tin
+                                nhắn lạ, liên kết URL sai chính tả, ép buộc thời gian thực hiện.
+                            </div>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="flowchart-step-card attack-node">
+                            <div class="step-num">2</div>
+                            <h4 class="step-title">Thu thập Thông tin</h4>
+                            <p class="step-desc">Nạn nhân nhập SĐT và OTP vào trang web giả mạo Telegram. Dữ liệu được
+                                gửi trực tiếp về máy chủ của tin tặc.</p>
+                            <div class="step-redflags">
+                                <strong><i class="fa-solid fa-triangle-exclamation"></i> Dấu hiệu:</strong> Trang web
+                                bắt xác thực OTP ngay cả khi không thao tác đăng nhập chính chủ.
+                            </div>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="flowchart-step-card attack-node">
+                            <div class="step-num">3</div>
+                            <h4 class="step-title">Chiếm quyền & Spam</h4>
+                            <p class="step-desc">Hacker lấy Session Cookie cướp Telegram, đổi mật khẩu và chạy script tự
+                                động nhắn link dụ đầu tư sàn Crypto ảo cho bạn bè.</p>
+                            <div class="step-redflags">
+                                <strong><i class="fa-solid fa-triangle-exclamation"></i> Dấu hiệu:</strong> Các thiết bị
+                                cũ bị văng khỏi tài khoản, tin nhắn tự động gửi đi ngoài ý muốn.
+                            </div>
+                        </div>
+                        <!-- Step 4 -->
+                        <div class="flowchart-step-card attack-node">
+                            <div class="step-num">4</div>
+                            <h4 class="step-title">Bẫy nạp tiền & Ép thuế</h4>
+                            <p class="step-desc">Bạn nạn nhân vào sàn NovaGrow nạp tiền. Lợi nhuận ảo nhảy liên tục. Khi
+                                rút tiền bị báo lỗi, bắt nạp thêm 15% phí xác minh.</p>
+                            <div class="step-redflags">
+                                <strong><i class="fa-solid fa-triangle-exclamation"></i> Dấu hiệu:</strong> Không cho
+                                trừ trực tiếp vào số dư khả dụng, hăm dọa khóa tài khoản vĩnh viễn.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="flow-section-title flow-defense">
+                        <i class="fa-solid fa-shield-halved"></i> LUỒNG PHÒNG VỆ CHỦ ĐỘNG (DEFENSE SYSTEM)
+                    </h3>
+                    <div class="flowchart-steps">
+                        <!-- Step 1 -->
+                        <div class="flowchart-step-card defense-node">
+                            <div class="step-num">1</div>
+                            <h4 class="step-title">Ngăn chặn Tiếp cận</h4>
+                            <p class="step-desc">Sử dụng các bộ lọc spam SMS của nhà mạng, DNS bảo mật (như Cloudflare
+                                1.1.1.2) tự động chặn truy cập tên miền lừa đảo.</p>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="flowchart-step-card defense-node">
+                            <div class="step-num">2</div>
+                            <h4 class="step-title">Xác thực FIDO2 / Passkey</h4>
+                            <p class="step-desc">Nếu sử dụng khóa bảo mật cứng FIDO2 thay cho SMS OTP, khóa sẽ chỉ phát
+                                OTP cho đúng tên miền chính thức của Telegram.</p>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="flowchart-step-card defense-node">
+                            <div class="step-num">3</div>
+                            <h4 class="step-title">Cơ chế Hủy Session</h4>
+                            <p class="step-desc">Ứng dụng mạng xã hội phát hiện đăng nhập IP lạ sẽ tự động tạm khóa các
+                                tính năng nhạy cảm như đổi thông tin tài khoản trong 24h.</p>
+                        </div>
+                        <!-- Step 4 -->
+                        <div class="flowchart-step-card defense-node">
+                            <div class="step-num">4</div>
+                            <h4 class="step-title">AI Chống Rửa Tiền</h4>
+                            <p class="step-desc">Hệ thống ngân hàng áp dụng AI giám sát sinh trắc học sâu, phát hiện
+                                dòng tiền chuyển khoản bất thường đến các ví rác để đóng băng khẩn cấp.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TAB 3: CASES HUB (REAL CASES IN VIETNAM)
+             ========================================== -->
+        <section id="tab-cases" class="tab-content">
+            <div class="card glow-primary section-header-card">
+                <h2 class="section-heading">
+                    <i class="fa-solid fa-newspaper"></i> Thư viện vụ án & Tính thời sự công nghệ cao
+                </h2>
+                <p class="section-desc">
+                    Cập nhật những chiêu trò lừa đảo sử dụng công nghệ cao cực kỳ tinh vi gần đây tại Việt Nam (Tiêu chí
+                    số 4 và 7 trong Rubric).
+                </p>
+            </div>
+
+            <div class="cases-grid">
+                <!-- Case 1 -->
+                <div class="card case-card glow-danger">
+                    <div class="case-meta">
+                        <span class="case-tag">Social Engineering & Deepfake</span>
+                        <span class="case-date">Tháng 04/2026</span>
+                    </div>
+                    <h3 class="case-name">Cuộc gọi video Deepfake mạo danh Công an/Viện kiểm sát</h3>
+                    <div class="case-anatomy">
+                        <p><strong>🚨 Cách thức vận hành:</strong> Kẻ gian sử dụng AI tạo ra hình ảnh, giọng nói giống
+                            hệt cán bộ công an đang ngồi tại phòng làm việc. Chúng gọi video đe dọa nạn nhân liên quan
+                            đến đường dây rửa tiền, bắt chuyển tiền vào "Tài khoản tạm giữ của Bộ Công an" để xác minh.
+                        </p>
+                    </div>
+                    <div class="case-lesson">
+                        <strong><i class="fa-solid fa-lightbulb"></i> Bài học xương máu:</strong> Cơ quan chức năng Việt
+                        Nam không bao giờ làm việc qua điện thoại hay mạng xã hội. Tất cả các yêu cầu chuyển khoản xác
+                        minh dòng tiền đều là lừa đảo.
+                    </div>
+                </div>
+
+                <!-- Case 2 -->
+                <div class="card case-card glow-danger">
+                    <div class="case-meta">
+                        <span class="case-tag">Android Malware & Accessibility</span>
+                        <span class="case-date">Tháng 02/2026</span>
+                    </div>
+                    <h3 class="case-name">Cài đặt mã độc thông qua App Dịch vụ công giả mạo</h3>
+                    <div class="case-anatomy">
+                        <p><strong>🚨 Cách thức vận hành:</strong> Đối tượng lừa đảo dụ dỗ nạn nhân tải file APK cài đặt
+                            app "Tổng cục Thuế" hoặc "Dịch vụ công" giả mạo. App giả này yêu cầu quyền Trợ năng
+                            (Accessibility Service) trên Android để kẻ gian từ xa xem lén màn hình, lấy cắp OTP và tự
+                            động chuyển sạch tiền ngân hàng.</p>
+                    </div>
+                    <div class="case-lesson">
+                        <strong><i class="fa-solid fa-lightbulb"></i> Bài học xương máu:</strong> Tuyệt đối không cài
+                        ứng dụng ngoài Google Play Store. Không bao giờ cấp quyền Trợ năng (Accessibility) cho các ứng
+                        dụng lạ trên điện thoại thông minh Android.
+                    </div>
+                </div>
+
+                <!-- Case 3 -->
+                <div class="card case-card glow-danger">
+                    <div class="case-meta">
+                        <span class="case-tag">E-Commerce & Fake Bill</span>
+                        <span class="case-date">Tháng 05/2026</span>
+                    </div>
+                    <h3 class="case-name">Lừa đảo Biên lai chuyển khoản thành công bằng mã QR</h3>
+                    <div class="case-anatomy">
+                        <p><strong>🚨 Cách thức vận hành:</strong> Đối tượng mua hàng số lượng lớn qua mạng, sau đó dùng
+                            các bot Telegram hoặc Photoshop chỉnh sửa ảnh biên lai chuyển khoản (Fake Transaction
+                            Receipt) cực kỳ tinh vi hiển thị đã chuyển tiền thành công, rồi hối thúc chủ shop giao hàng
+                            khẩn cấp.</p>
+                    </div>
+                    <div class="case-lesson">
+                        <strong><i class="fa-solid fa-lightbulb"></i> Bài học xương máu:</strong> Các chủ shop
+                        E-commerce chỉ được giao hàng khi và chỉ khi tiền đã thực sự nổi trong tài khoản ngân hàng chính
+                        thức của mình (biến động số dư thực), tuyệt đối không tin vào ảnh chụp màn hình bill.
+                    </div>
+                </div>
+
+                <!-- Case 4 -->
+                <div class="card case-card glow-danger">
+                    <div class="case-meta">
+                        <span class="case-tag">Crypto Scam & Sunk Cost</span>
+                        <span class="case-date">Tháng 03/2026</span>
+                    </div>
+                    <h3 class="case-name">Mô hình đầu tư chuỗi đa cấp sàn "Báo lỗi rút thuế"</h3>
+                    <div class="case-anatomy">
+                        <p><strong>🚨 Cách thức vận hành:</strong> Các sàn giao dịch ngoại hối và tiền ảo cam kết lãi
+                            suất 20-30%/tháng. Giai đoạn đầu cho rút tiền nhỏ rất nhanh để làm tin. Đến khi nạn nhân dồn
+                            toàn bộ gia tài nạp vào số tiền lớn, sàn báo lỗi giao dịch trốn thuế và bắt nạp thêm phí
+                            chống rửa tiền liên tục cho đến khi nạn nhân cạn sạch tiền.</p>
+                    </div>
+                    <div class="case-lesson">
+                        <strong><i class="fa-solid fa-lightbulb"></i> Bài học xương máu:</strong> Sàn giao dịch tài
+                        chính uy tín không bao giờ bắt nạp thêm tiền từ bên ngoài để mở khóa rút tiền hiện có. Đây là
+                        đòn bẫy tâm lý "Chi phí chìm" nhằm vét sạch tài sản nạn nhân.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             TAB 4: SHIELD HUB (DEFENSE ROADMAP)
+             ========================================== -->
+        <section id="tab-shield" class="tab-content">
+            <div class="card glow-primary section-header-card">
+                <h2 class="section-heading">
+                    <i class="fa-solid fa-user-shield"></i> Lá chắn phòng vệ an toàn thông tin
+                </h2>
+                <p class="section-desc">
+                    Bộ quy tắc Zero-Trust dành cho người tiêu dùng cuối và các đề xuất bảo mật cấp tổ chức để giảm thiểu
+                    gian lận thanh toán E-commerce (Tiêu chí số 5 và 6 trong Rubric).
+                </p>
+            </div>
+
+            <div class="defense-grid">
+
+                <!-- User Side Defense Checklist -->
+                <div>
+                    <h3 class="defense-section-title user">
+                        <i class="fa-solid fa-user-lock"></i> LÁ CHẮN NGƯỜI TIÊU DÙNG (ZERO-TRUST CÁ NHÂN)
+                    </h3>
+                    <ul class="checklist" id="user-checklist">
+                        <li class="checklist-item">
+                            <div class="checklist-checkbox"><i class="fa-solid fa-check"></i></div>
+                            <div class="checklist-content">
+                                <h4 class="checklist-title">Quy tắc "3 KHÔNG" bất di bất dịch</h4>
+                                <p class="checklist-desc">Không tin tưởng các số điện thoại lạ; Không click vào đường
+                                    dẫn không rõ nguồn gốc; Không cung cấp OTP/mật khẩu cho bất cứ ai dưới mọi hình
+                                    thức.</p>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checklist-checkbox"><i class="fa-solid fa-check"></i></div>
+                            <div class="checklist-content">
+                                <h4 class="checklist-title">Kích hoạt Xác thực 2 lớp dạng cứng (MFA)</h4>
+                                <p class="checklist-desc">Sử dụng Google Authenticator hoặc Khóa bảo mật vật lý (FIDO2
+                                    Key) cho tài khoản Gmail, Mạng xã hội thay thế hoàn toàn cho OTP dạng SMS dễ bị đánh
+                                    cắp.</p>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checklist-checkbox"><i class="fa-solid fa-check"></i></div>
+                            <div class="checklist-content">
+                                <h4 class="checklist-title">Quy trình xử lý khẩn cấp khi bị lộ thông tin</h4>
+                                <p class="checklist-desc">Bước 1: Ngay lập tức đăng xuất tài khoản khỏi tất cả thiết bị;
+                                    Bước 2: Liên hệ tổng đài khóa khẩn cấp thẻ ngân hàng; Bước 3: Đổi mật khẩu tất cả
+                                    tài khoản liên quan.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Organization/System Side Defense -->
+                <div>
+                    <h3 class="defense-section-title org">
+                        <i class="fa-solid fa-building-shield"></i> GIẢI PHÁP TỔ CHỨC (HỆ THỐNG AN TOÀN THANH TOÁN)
+                    </h3>
+                    <ul class="checklist" id="org-checklist">
+                        <li class="checklist-item">
+                            <div class="checklist-checkbox"><i class="fa-solid fa-check"></i></div>
+                            <div class="checklist-content">
+                                <h4 class="checklist-title">Hệ thống Giám sát hành vi AI (Fraud Detection)</h4>
+                                <p class="checklist-desc">Áp dụng máy học để theo dõi hành vi giao dịch: phát hiện thiết
+                                    bị đăng nhập lạ, tần suất chuyển tiền bất thường hoặc giao dịch đi đến các tài khoản
+                                    nằm trong blacklist.</p>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checklist-checkbox"><i class="fa-solid fa-check"></i></div>
+                            <div class="checklist-content">
+                                <h4 class="checklist-title">Bắt buộc Xác thực sinh trắc học khuôn mặt</h4>
+                                <p class="checklist-desc">Triển khai quyết định chuyển tiền trên 10 triệu đồng bắt buộc
+                                    khớp sinh trắc học khuôn mặt đã đăng ký căn cước công dân để vô hiệu hóa tài khoản
+                                    rác/thuê mượn.</p>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checklist-checkbox"><i class="fa-solid fa-check"></i></div>
+                            <div class="checklist-content">
+                                <h4 class="checklist-title">Quy trình phối hợp phản ứng nhanh liên ngân hàng</h4>
+                                <p class="checklist-desc">Xây dựng API kết nối thời gian thực giữa các ngân hàng để thực
+                                    hiện lệnh phong tỏa/đóng băng dòng tiền lừa đảo ngay lập tức khi nhận được khiếu
+                                    nại, chặn đứng đường đi tẩu tán.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ==========================================
+         MODALS & SIMULATION NOTIFICATIONS
+         ========================================== -->
+
+    <!-- Scam Tax Warning Modal (Crypto Withdraw Trap) -->
+    <div class="scam-modal-overlay" id="scam-tax-modal">
+        <div class="scam-modal">
+            <div class="scam-modal-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 class="scam-modal-title">YÊU CẦU RÚT TIỀN BỊ TẠM GIỮ</h3>
+            <div class="scam-modal-desc">
+                Hệ thống bảo an của <strong>NovaGrow Platform</strong> nhận được thông báo từ <strong>Ủy Ban Thuế Tài
+                    Chính Quốc Tế</strong>:
+                <br><br>
+                Khoản rút <strong>$2,500.00 USDT</strong> của bạn đang bị giữ lại do nghi vấn trốn thuế thu nhập đầu tư.
+                Để giải ngân dòng tiền, bạn cần nạp bổ sung <strong>15% phí bảo chứng dòng tiền ($375.00 USDT)</strong>
+                từ ví ngoài vào để xác minh dòng tiền sạch.
+                <br><br>
+                <em>*Lưu ý: Không thể trừ trực tiếp phí này vào số dư tài khoản do tài khoản đang bị khóa tạm thời. Tiền
+                    nạp bổ sung sẽ được hoàn trả đầy đủ cùng khoản rút sau khi xác minh hoàn tất trong vòng 20
+                    phút.*</em>
+            </div>
+            <button class="btn btn-danger" id="btn-close-scam-modal">
+                <i class="fa-solid fa-circle-check"></i> Tôi đã hiểu và liên hệ hỗ trợ viên
+            </button>
+        </div>
+    </div>
+
+    <!-- Notification Modal for Phishing simulator steps -->
+    <div class="modal-overlay" id="generic-modal">
+        <div class="modal-content">
+            <h3 id="modal-title" class="modal-title">Thông báo</h3>
+            <p id="modal-desc" class="modal-desc"></p>
+            <button class="btn" id="btn-close-generic-modal">Đóng</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-bar">
+        <p>© 2026 E-Safe Scam Simulator.</p>
+    </footer>
+
+    <!-- App Script -->
+    <script src="app.js"></script>
+</body>
+
+</html>
